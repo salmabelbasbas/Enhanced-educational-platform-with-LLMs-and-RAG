@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Evaluation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz Evaluation</h1>
+        <div class="quiz-evaluation">
+            {% for feedback_item in feedback %}
+                <div class="evaluation-item">
+                    <h2>{{ loop.index }}. {{ feedback_item['question'] }}</h2>
+                    <p><strong>Your Answer:</strong> {{ feedback_item['user_answer'] }}</p>
+                    <p><strong>Correct Answer:</strong> {{ feedback_item['correct'] }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <a href="/">Back to Home</a>
+    </div>
+</body>
+</html>

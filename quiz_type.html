@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Quiz Type</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: 'Poppins', sans-serif; /* Modern and clean font */
+            background-color: #121212; /* Dark background for the whole page */
+            color: #e0e0e0; /* Light text for contrast */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Container styles */
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #1e1e1e; /* Slightly lighter dark background for containers */
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+            text-align: center;
+        }
+
+        /* Header styles */
+        .header {
+            background-color: #1f1f1f; /* Darker header background */
+            color: #ff9800; /* Accent color for header */
+            padding: 20px;
+            border-radius: 12px 12px 0 0;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        main {
+            margin: 20px 0;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group input[type="radio"] {
+            display: none;
+        }
+
+        .form-group label {
+            display: block;
+            background-color: #2c2c2c;
+            color: #e0e0e0;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .form-group input[type="radio"]:checked + label {
+            background-color: #388e3c; /* Highlighted background for selected option */
+            color: #fff;
+        }
+
+        .form-group label:hover {
+            background-color: #333;
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+
+        /* Submit button styles */
+        button {
+            display: block;
+            width: 100%;
+            max-width: 200px;
+            padding: 15px;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #388e3c, #66bb6a); /* Modern green gradient */
+            color: #fff;
+            font-size: 18px; /* Larger font size */
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #43a047, #81c784); /* Slightly different green gradient on hover */
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Interactive Quiz Platform</h1>
+        </header>
+        <main>
+            <h2>Welcome! Please choose the type of quiz you'd like to generate:</h2>
+            <form action="/select_quiz_type" method="POST">
+                <div class="form-group">
+                    <input type="radio" id="multiple_choice" name="quiz_type" value="multiple" required>
+                    <label for="multiple_choice">Multiple Choice Quiz</label>
+                </div>
+                <div class="form-group">
+                    <input type="radio" id="questions_only" name="quiz_type" value="questions" required>
+                    <label for="questions_only">Questions Only Quiz</label>
+                </div>
+                <button type="submit">Continue</button>
+            </form>
+        </main>
+    </div>
+</body>
+</html>

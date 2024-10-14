@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Chatbot</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: #1c1c1c;
+            padding: 20px;
+            color: #f0f0f0;
+            border-bottom: 2px solid #333333;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header .logo {
+            font-size: 1.75em;
+            font-weight: bold;
+            color: #ff9800;
+            display: flex;
+            align-items: center;
+        }
+
+        .header .logo .emoji {
+            font-size: 1.5em;
+            margin-right: 10px;
+            animation: bounce 1s infinite;
+        }
+
+        .header .navbar {
+            display: flex;
+            gap: 20px;
+        }
+
+        .header .navbar a {
+            color: #e0e0e0;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-size: 1em;
+        }
+
+        .header .navbar a:hover,
+        .header .navbar a.active {
+            background-color: #ff9800;
+            color: #121212;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Main Content Container */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Chat Container */
+        .chat-container {
+            background-color: #252525;
+            padding: 20px;
+            border-radius: 12px;
+            max-height: 600px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            border: 1px solid #333333;
+        }
+
+        .chat-bubble {
+            padding: 12px 20px;
+            border-radius: 25px;
+            margin-bottom: 10px;
+            width: fit-content;
+            max-width: 80%;
+            font-size: 1em;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .chat-bubble.user {
+            background-color: #76c7c0;
+            margin-left: auto;
+            color: #121212;
+            text-align: right;
+            border-bottom-right-radius: 0;
+        }
+
+        .chat-bubble.bot {
+            background-color: #3b3b3b;
+            color: #e0e0e0;
+            border-bottom-left-radius: 0;
+        }
+
+        /* Input Area */
+        .input-area {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .input-area input[type="text"] {
+            padding: 15px;
+            border-radius: 25px;
+            border: 1px solid #333333;
+            outline: none;
+            background-color: #424242;
+            color: #e0e0e0;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        .input-area input[type="text"]:focus {
+            background-color: #333333;
+        }
+
+        .input-area .form-label {
+            background-color: #ff9800;
+            color: #121212;
+            padding: 10px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1em;
+            display: inline-block;
+        }
+
+        .input-area .form-label:hover {
+            background-color: #ffb74d;
+        }
+
+        .input-area .btn {
+            background-color: #76c7c0;
+            color: #e0e0e0;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        .input-area .btn:hover {
+            background-color: #84d1cd;
+        }
+
+        .input-area .file-upload {
+            display: inline-block;
+            position: relative;
+        }
+
+        .input-area .file-upload input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .input-area .file-upload .form-label {
+            background-color: #76c7c0;
+            color: #fff;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 0.9em;
+            color: #aaaaaa;
+            border-top: 1px solid #333333;
+            background-color: #1e1e1e;
+            border-radius: 0 0 12px 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo d-flex align-items-center">
+                <span class="emoji">🤖</span> Chatbot
+            </div>
+            <nav class="navbar d-flex">
+                <a href="/" class="{{ 'active' if active_page == 'home' else '' }}">Home</a>
+                <a href="/quiz" class="{{ 'active' if active_page == 'Quiz' else '' }}">quiz</a>
+                <a href="/chatbot" class="{{ 'active' if active_page == 'chatbot' else '' }}">Chatbot</a>
+                <a href="/login" class="{{ 'active' if active_page == 'login' else '' }}">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="chat-container">
+            {% for entry in conversation_history %}
+            <div class="chat-bubble {{ entry.role }}">{{ entry.message }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="input-area">
+            <form method="post" action="/chatbot" enctype="multipart/form-data">
+                <input type="text" name="user_input" placeholder="Type your message..." required>
+                <div class="file-upload">
+                    <label for="file_input" class="form-label">📎 Attach File</label>
+                    <input type="file" id="file_input" name="file_input">
+                </div>
+                <button type="submit" class="btn">Send 🚀</button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer">
+        &copy; 2024 Interactive Chatbot. All rights reserved.
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

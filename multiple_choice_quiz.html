@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Choice Quiz</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: 'Poppins', sans-serif; /* Modern and clean font */
+            background: linear-gradient(135deg, #121212, #1e1e1e); /* Subtle gradient background */
+            color: #e0e0e0; /* Light text for contrast */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Container styles */
+        .container {
+            max-width: 600px;
+            width: 100%;
+            padding: 30px;
+            background-color: #1e1e1e; /* Slightly lighter dark background for containers */
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Enhanced shadow for depth */
+            border: 1px solid #333; /* Subtle border for contrast */
+            backdrop-filter: blur(10px); /* Blurred background effect */
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header styles */
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #ff9800; /* Vibrant accent color for header */
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Subtle shadow for text */
+        }
+
+        /* Form styles */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 16px;
+            color: #e0e0e0; /* Light text for labels */
+            margin-bottom: 8px;
+        }
+
+        textarea,
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #333; /* Subtle border */
+            border-radius: 8px;
+            background-color: #2c2c2c; /* Dark background for inputs */
+            color: #e0e0e0;
+            font-size: 14px;
+            margin-bottom: 20px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        textarea:focus,
+        input[type="number"]:focus,
+        select:focus {
+            border-color: #ff9800; /* Accent color on focus */
+            box-shadow: 0 0 8px rgba(255, 152, 0, 0.5); /* Glow effect on focus */
+            outline: none;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #388e3c, #66bb6a); /* Modern green gradient */
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #43a047, #81c784); /* Slightly different green gradient on hover */
+            transform: translateY(-2px); /* Slight lift effect */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            button {
+                font-size: 16px;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Generate Multiple Choice Quiz</h1>
+        <form action="{{ url_for('multiple_choice_quiz') }}" method="POST">
+            <label for="text">Context:</label>
+            <textarea id="text" name="text" rows="5" required placeholder="Enter the context here..."></textarea>
+
+            <label for="num_questions">Number of Questions:</label>
+            <input type="number" id="num_questions" name="num_questions" min="1" required>
+
+            <label for="num_options">Number of Options:</label>
+            <input type="number" id="num_options" name="num_options" min="2" required>
+
+            <label for="answer_type">Answer Type:</label>
+            <select id="answer_type" name="answer_type" required>
+                <option value="single">Single Choice</option>
+                <option value="multiple">Multiple Choice</option>
+            </select>
+
+            <button type="submit">Generate Quiz</button>
+        </form>
+    </div>
+</body>
+</html>

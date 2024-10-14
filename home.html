@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: #1c1c1c;
+            padding: 20px;
+            color: #f0f0f0;
+            border-bottom: 2px solid #333333;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header .logo {
+            font-size: 1.75em;
+            font-weight: bold;
+            color: #ff9800;
+            display: flex;
+            align-items: center;
+        }
+
+        .header .logo .emoji {
+            font-size: 1.5em;
+            margin-right: 10px;
+            animation: bounce 1s infinite;
+        }
+
+        .header .navbar {
+            display: flex;
+            gap: 20px;
+        }
+
+        .header .navbar a {
+            color: #e0e0e0;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-size: 1em;
+        }
+
+        .header .navbar a:hover,
+        .header .navbar a.active {
+            background-color: #ff9800;
+            color: #121212;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Main Content */
+        .hero {
+            background: #1e1e1e;
+            padding: 60px 20px;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero h1 {
+            font-size: 2.5em;
+            color: #ff9800;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            color: #e0e0e0;
+            margin-bottom: 30px;
+        }
+
+        /* Updated Try the Chatbot Button */
+        .btn-primary {
+            background-color: #76c7c0;
+            color: #e0e0e0;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 0 10px rgba(118, 199, 192, 0.5);
+        }
+
+        .btn-primary:hover {
+            background-color: #84d1cd;
+            box-shadow: 0 0 20px rgba(118, 199, 192, 0.7);
+        }
+
+        /* Enhanced Features Section */
+        .features {
+            background-color: #1e1e1e;
+            padding: 40px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+
+        .features h2 {
+            font-size: 2.5em;
+            color: #ff9800;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .features .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .features .feature-item {
+            background-color: #252525;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 10px;
+            max-width: 350px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .features .feature-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .features .feature-item h3 {
+            color: #76c7c0;
+            font-size: 1.6em;
+            margin-bottom: 15px;
+        }
+
+        .features .feature-item p {
+            color: #e0e0e0;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .features .feature-item .emoji {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .features .feature-item .cta-link {
+            color: #76c7c0;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .features .feature-item .cta-link:hover {
+            color: #84d1cd;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 0.9em;
+            color: #aaaaaa;
+            border-top: 1px solid #333333;
+            background-color: #1e1e1e;
+            border-radius: 0 0 12px 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo d-flex align-items-center">
+                <span class="emoji">🤖</span> StudyBot
+            </div>
+            <nav class="navbar d-flex">
+                <a href="/" class="{{ 'active' if active_page == 'home' else '' }}">Home</a>
+                <a href="/quiz" class="{{ 'active' if active_page == 'Quiz' else '' }}">Quiz</a>
+                <a href="/chatbot" class="{{ 'active' if active_page == 'chatbot' else '' }}">Chatbot</a>
+                <a href="/login" class="{{ 'active' if active_page == 'login' else '' }}">Login</a>
+                <a href="/courses" class="{{ 'active' if active_page == 'courses' else '' }}">Courses</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="hero">
+        <h1>Welcome to the Educational Platform</h1>
+        <p>Your gateway to interactive learning and cutting-edge tools. Explore our features and get started today!</p>
+        <a href="{{ url_for('chatbot') }}" class="btn-primary">Try the Chatbot</a>
+    </main>
+
+    <section class="features">
+        <h2>Our Features</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="feature-item">
+                    <span class="emoji">🗨️</span>
+                    <h3>Interactive Chatbot</h3>
+                    <p>Engage with our intelligent chatbot for personalized assistance and answers to your questions.</p>
+                    <a href="{{ url_for('chatbot') }}" class="cta-link">Chat now</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-item">
+                    <span class="emoji">📝</span>
+                    <h3>Quiz Generator</h3>
+                    <p>Create and take quizzes to test your knowledge and track your progress. Challenge yourself today!</p>
+                    <a href="{{ url_for('quiz') }}" class="cta-link">Start a quiz</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-item">
+                    <span class="emoji">📈</span>
+                    <h3>Performance Tracking</h3>
+                    <p>Monitor your learning progress with detailed performance analytics. Stay ahead of your goals.</p>
+                    <a href="#" class="cta-link">Track your progress</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        &copy; 2024 Educational Platform. All rights reserved.
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

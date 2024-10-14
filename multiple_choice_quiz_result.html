@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz Results</h1>
+        <p>Your score: {{ score }}%</p>
+        {% for item in feedback %}
+            <div class="question-feedback">
+                <h2>Question {{ item.index + 1 }}:</h2>
+                <p>{{ item.question }}</p>
+                <p>Selected: {{ item.selected_answer }}</p>
+                <p>Correct Answer: {{ item.correct_answer }}</p>
+                <p>Result: {{ item.result }}</p>
+            </div>
+        {% endfor %}
+        <a href="{{ url_for('multiple_choice_quiz') }}">Try Another Quiz</a>
+    </div>
+</body>
+</html>

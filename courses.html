@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Courses</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: #1c1c1c;
+            padding: 20px;
+            color: #f0f0f0;
+            border-bottom: 2px solid #333333;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header .logo {
+            font-size: 1.75em;
+            font-weight: bold;
+            color: #ff9800;
+            display: flex;
+            align-items: center;
+        }
+
+        .header .navbar {
+            display: flex;
+            gap: 20px;
+        }
+
+        .header .navbar a {
+            color: #e0e0e0;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-size: 1em;
+        }
+
+        .header .navbar a:hover,
+        .header .navbar a.active {
+            background-color: #ff9800;
+            color: #121212;
+        }
+
+        /* Courses Page */
+        .courses {
+            background: #1e1e1e;
+            padding: 40px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .courses h2 {
+            font-size: 2.5em;
+            color: #ff9800;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .courses .section {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .courses .section h3 {
+            color: #76c7c0;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .courses .section .course-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .courses .section .course-container .course-item {
+            background-color: #2a2a2a;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            flex: 0 1 calc(33.333% - 20px);
+            max-width: calc(33.333% - 20px);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .courses .section .course-container .course-item:hover {
+            background-color: #ff9800;
+            transform: translateY(-5px);
+        }
+
+        .courses .section .course-container .course-item a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+
+        .courses .section .course-container .course-item a:hover {
+            color: #121212;
+        }
+
+        /* Footer Styles */
+        .footer {
+            padding: 20px;
+            text-align: center;
+            background-color: #1c1c1c;
+            color: #f0f0f0;
+            border-top: 2px solid #333333;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo d-flex align-items-center">
+                <span class="emoji">🤖</span> StudyBot
+            </div>
+            <nav class="navbar d-flex">
+                <a href="/" class="{{ 'active' if active_page == 'home' else '' }}">Home</a>
+                <a href="/quiz" class="{{ 'active' if active_page == 'quiz' else '' }}">Quiz</a>
+                <a href="/chatbot" class="{{ 'active' if active_page == 'chatbot' else '' }}">Chatbot</a>
+                <a href="/courses" class="{{ 'active' if active_page == 'courses' else '' }}">Courses</a>
+                <a href="/login" class="{{ 'active' if active_page == 'login' else '' }}">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="courses">
+        <h2>Available Courses</h2>
+        {% for subject, courses in courses_by_subject.items() %}
+            <div class="section">
+                <h3>{{ subject }}</h3>
+                <div class="course-container">
+                    {% for course in courses %}
+                        <div class="course-item">
+                            <a href="{{ url_for('download_file', filename=course[1]) }}">{{ course[0] }}</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </main>
+
+    <footer class="footer">
+        &copy; 2024 Educational Platform. All rights reserved.
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+</body>
+</html>

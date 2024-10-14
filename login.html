@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: #1c1c1c;
+            padding: 20px 0;
+            color: #f0f0f0;
+            border-bottom: 2px solid #333333;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header .logo {
+            font-size: 1.75em;
+            font-weight: bold;
+            color: #ff9800;
+            display: flex;
+            align-items: center;
+        }
+
+        .header .logo .emoji {
+            font-size: 1.5em;
+            margin-right: 10px;
+            animation: bounce 1s infinite;
+        }
+
+        .header .navbar {
+            display: flex;
+            gap: 20px;
+        }
+
+        .header .navbar a {
+            color: #e0e0e0;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-size: 1em;
+        }
+
+        .header .navbar a:hover,
+        .header .navbar a.active {
+            background-color: #ff9800;
+            color: #121212;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Main Content Container */
+        .container {
+            max-width: 600px;
+            margin: 120px auto 20px; /* Adjusted margin to accommodate fixed header */
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Form Styles */
+        .login-container {
+            text-align: center;
+        }
+
+        .login-container h1 {
+            margin-bottom: 20px;
+            color: #e0e0e0;
+            font-size: 24px;
+        }
+
+        .login-container label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #b0b0b0;
+        }
+
+        .login-container input {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background: #424242;
+            color: #e0e0e0;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-container input::placeholder {
+            color: #888;
+        }
+
+        .login-container button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            background-color: #76c7c0;
+            color: #e0e0e0;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .login-container button:hover {
+            background-color: #84d1cd;
+            transform: translateY(-2px);
+        }
+
+        .login-container .register-link {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #b0b0b0;
+        }
+
+        .login-container .register-link a {
+            color: #ff9800;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-container .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo d-flex align-items-center">
+                <span class="emoji">🤖</span> StudyBot
+            </div>
+            <nav class="navbar d-flex">
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="{{ url_for('register') }}">Register</a>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="container">
+        <div class="login-container">
+            <h1>Login</h1>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="error-message">
+                        {% for category, message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            <form action="{{ url_for('login') }}" method="POST">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+                <button type="submit">Login</button>
+            </form>
+            <div class="register-link">
+                <p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
+            </div>
+        </div>
+    </main>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+</body>
+</html>

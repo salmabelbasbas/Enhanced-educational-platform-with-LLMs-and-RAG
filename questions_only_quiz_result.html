@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questions Only Quiz Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Questions Only Quiz</h1>
+        <form action="/submit_questions_only_quiz" method="POST">
+            {% for q in quiz %}
+                <div class="question-block">
+                    <h2>Question {{ loop.index }}:</h2>
+                    <p>{{ q.question }}</p>
+                    <input type="hidden" name="correct_answer" value="{{ q.answer }}">
+                    <input type="hidden" name="question" value="{{ q.question }}">
+                    <input type="text" name="answer_{{ loop.index0 }}" placeholder="Your answer here...">
+                </div>
+            {% endfor %}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

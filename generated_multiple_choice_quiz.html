@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Quiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Interactive Quiz</h1>
+        <form action="{{ url_for('submit_multiple_choice_quiz') }}" method="POST">
+            {% for q in quiz %}
+                <div class="question-block">
+                    <h2>Question {{ q.index + 1 }}:</h2>
+                    <p>{{ q.question }}</p>
+                    <div class="options">
+                        {% for option in q.options %}
+                            {% if option %}
+                                <div class="option">
+                                    {% if answer_type == 'multiple' %}
+                                        <input type="checkbox" id="q{{ q.index }}_{{ loop.index0 }}" name="answer_{{ q.index }}[]" value="{{ option }}">
+                                        <label for="q{{ q.index }}_{{ loop.index0 }}">{{ option }}</label>
+                                    {% else %}
+                                        <input type="radio" id="q{{ q.index }}_{{ loop.index0 }}" name="answer_{{ q.index }}" value="{{ option }}">
+                                        <label for="q{{ q.index }}_{{ loop.index0 }}">{{ option }}</label>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <input type="hidden" name="correct_answer_{{ q.index }}" value="{{ q.answer }}">
+                    <input type="hidden" name="question_{{ q.index }}" value="{{ q.question }}">
+                </div>
+            {% endfor %}
+            <input type="hidden" name="total_questions" value="{{ quiz|length }}">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
