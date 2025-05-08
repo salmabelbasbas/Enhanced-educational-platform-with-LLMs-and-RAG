@@ -1,3 +1,4 @@
+#this is home or app
 from flask import Flask, render_template, request, redirect, url_for,send_from_directory, flash,session , abort
 import fitz  # PyMuPDF for PDFs
 import pandas as pd
